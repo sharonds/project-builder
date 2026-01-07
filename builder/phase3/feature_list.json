@@ -1,0 +1,362 @@
+[
+  {
+    "category": "setup",
+    "description": "Create Phase 3 directory structure with src, prompts, schemas, and tests folders",
+    "steps": [
+      "Step 1: Create src/ directory for Python modules",
+      "Step 2: Create prompts/ directory for agent prompts",
+      "Step 3: Create schemas/ directory for JSON schemas",
+      "Step 4: Create tests/ directory for test files",
+      "Step 5: Create tests/fixtures/ for test data",
+      "Step 6: Verify all directories exist"
+    ],
+    "passes": true
+  },
+  {
+    "category": "setup",
+    "description": "Create base __init__.py files for Python package structure",
+    "steps": [
+      "Step 1: Create src/__init__.py with package docstring",
+      "Step 2: Create tests/__init__.py",
+      "Step 3: Verify imports work"
+    ],
+    "passes": true
+  },
+  {
+    "category": "functional",
+    "description": "Extend project_profile.schema.json with learnings section",
+    "steps": [
+      "Step 1: Copy existing schema from phase2",
+      "Step 2: Add learnings object property with patterns array",
+      "Step 3: Add learnings.gotchas array for warnings",
+      "Step 4: Add learnings.common_errors array",
+      "Step 5: Add _meta object for update tracking",
+      "Step 6: Validate schema is valid JSON Schema draft-07"
+    ],
+    "passes": true
+  },
+  {
+    "category": "functional",
+    "description": "Create learnings.py module with add_pattern function",
+    "steps": [
+      "Step 1: Create src/learnings.py file",
+      "Step 2: Implement load_learnings() to read from project_profile.json",
+      "Step 3: Implement add_pattern(pattern, context) function",
+      "Step 4: Implement save_learnings() to persist changes",
+      "Step 5: Add docstrings and type hints"
+    ],
+    "passes": true
+  },
+  {
+    "category": "functional",
+    "description": "Add add_gotcha function to learnings.py",
+    "steps": [
+      "Step 1: Implement add_gotcha(warning, reason) function",
+      "Step 2: Ensure deduplication (no duplicate gotchas)",
+      "Step 3: Add timestamp to each gotcha entry",
+      "Step 4: Test with sample gotcha"
+    ],
+    "passes": true
+  },
+  {
+    "category": "functional",
+    "description": "Add add_common_error function to learnings.py",
+    "steps": [
+      "Step 1: Implement add_common_error(error, fix) function",
+      "Step 2: Track error frequency if same error seen multiple times",
+      "Step 3: Include fix solution in error entry",
+      "Step 4: Test with sample error and fix"
+    ],
+    "passes": true
+  },
+  {
+    "category": "functional",
+    "description": "Create progress.py module with ProgressTracker class",
+    "steps": [
+      "Step 1: Create src/progress.py file",
+      "Step 2: Define ProgressTracker class with project_dir parameter",
+      "Step 3: Implement load() to read existing progress file",
+      "Step 4: Implement save() to persist progress",
+      "Step 5: Define progress file path as claude-progress.txt"
+    ],
+    "passes": true
+  },
+  {
+    "category": "functional",
+    "description": "Add start_session method to ProgressTracker",
+    "steps": [
+      "Step 1: Implement start_session() method",
+      "Step 2: Record session start timestamp",
+      "Step 3: Increment session counter",
+      "Step 4: Create session header in progress file"
+    ],
+    "passes": true
+  },
+  {
+    "category": "functional",
+    "description": "Add log_feature_complete method to ProgressTracker",
+    "steps": [
+      "Step 1: Implement log_feature_complete(feature_name, notes) method",
+      "Step 2: Record feature completion under current session",
+      "Step 3: Include any issues encountered",
+      "Step 4: Update progress statistics"
+    ],
+    "passes": true
+  },
+  {
+    "category": "functional",
+    "description": "Add get_stats method to ProgressTracker",
+    "steps": [
+      "Step 1: Implement get_stats() method",
+      "Step 2: Return total sessions count",
+      "Step 3: Return features completed count",
+      "Step 4: Return current pass rate percentage"
+    ],
+    "passes": true
+  },
+  {
+    "category": "functional",
+    "description": "Add patterns section to progress file format",
+    "steps": [
+      "Step 1: Define patterns section header in progress file",
+      "Step 2: Implement add_pattern_to_progress(pattern) method",
+      "Step 3: Patterns section appears at top of file",
+      "Step 4: Session logs appear below patterns"
+    ],
+    "passes": true
+  },
+  {
+    "category": "functional",
+    "description": "Create story_sizing.py module with estimate_complexity function",
+    "steps": [
+      "Step 1: Create src/story_sizing.py file",
+      "Step 2: Implement estimate_complexity(description) function",
+      "Step 3: Return complexity score (1-10 scale)",
+      "Step 4: Use word count, keywords, and structure analysis"
+    ],
+    "passes": true
+  },
+  {
+    "category": "functional",
+    "description": "Add is_feature_too_large function to story_sizing.py",
+    "steps": [
+      "Step 1: Implement is_feature_too_large(description) function",
+      "Step 2: Return True if complexity > threshold (default 5)",
+      "Step 3: Allow configurable threshold parameter",
+      "Step 4: Return reason string explaining why"
+    ],
+    "passes": true
+  },
+  {
+    "category": "functional",
+    "description": "Add suggest_split function to story_sizing.py",
+    "steps": [
+      "Step 1: Implement suggest_split(description) function",
+      "Step 2: Identify split points (conjunctions, lists, phases)",
+      "Step 3: Return list of suggested smaller features",
+      "Step 4: Each suggestion should be self-contained"
+    ],
+    "passes": true
+  },
+  {
+    "category": "functional",
+    "description": "Create feature_validator.py module",
+    "steps": [
+      "Step 1: Create src/feature_validator.py file",
+      "Step 2: Implement validate_feature(feature) function",
+      "Step 3: Check feature has required fields (description, steps)",
+      "Step 4: Check feature is not too large using story_sizing"
+    ],
+    "passes": true
+  },
+  {
+    "category": "functional",
+    "description": "Add validate_feature_list function to feature_validator.py",
+    "steps": [
+      "Step 1: Implement validate_feature_list(features) function",
+      "Step 2: Validate each feature in list",
+      "Step 3: Return list of validation errors",
+      "Step 4: Include feature index in error messages"
+    ],
+    "passes": true
+  },
+  {
+    "category": "functional",
+    "description": "Add auto_split_large_features function to feature_validator.py",
+    "steps": [
+      "Step 1: Implement auto_split_large_features(features) function",
+      "Step 2: Identify features that are too large",
+      "Step 3: Split them using suggest_split",
+      "Step 4: Return modified feature list with splits applied"
+    ],
+    "passes": true
+  },
+  {
+    "category": "functional",
+    "description": "Create coding_prompt.md with learnings integration",
+    "steps": [
+      "Step 1: Create prompts/coding_prompt.md file",
+      "Step 2: Add instruction to read project_profile.json learnings at session start",
+      "Step 3: Add instruction to update learnings when discovering patterns",
+      "Step 4: Add instruction to never delete learnings, only append"
+    ],
+    "passes": true
+  },
+  {
+    "category": "functional",
+    "description": "Add progress tracking instructions to coding_prompt.md",
+    "steps": [
+      "Step 1: Add instruction to call start_session at session beginning",
+      "Step 2: Add instruction to call log_feature_complete after each feature",
+      "Step 3: Add instruction to update patterns section when discovering reusable info",
+      "Step 4: Document progress file format in prompt"
+    ],
+    "passes": true
+  },
+  {
+    "category": "functional",
+    "description": "Add story-sizing guidance to coding_prompt.md",
+    "steps": [
+      "Step 1: Add section explaining good vs bad feature sizes",
+      "Step 2: Include examples of features that are too large",
+      "Step 3: Include examples of properly sized features",
+      "Step 4: Add rule of thumb for splitting"
+    ],
+    "passes": true
+  },
+  {
+    "category": "functional",
+    "description": "Update initializer_prompt.md with story-sizing guidance",
+    "steps": [
+      "Step 1: Copy initializer_prompt.md from phase2",
+      "Step 2: Add Feature Sizing Guidelines section",
+      "Step 3: Add examples of good and bad feature sizes",
+      "Step 4: Add splitting rule guidance"
+    ],
+    "passes": true
+  },
+  {
+    "category": "integration",
+    "description": "Integrate learnings.py with project_profile loading",
+    "steps": [
+      "Step 1: Create integration function that loads profile and learnings together",
+      "Step 2: Handle case where learnings section doesn't exist yet",
+      "Step 3: Initialize empty learnings if needed",
+      "Step 4: Test integration with sample profile"
+    ],
+    "passes": true
+  },
+  {
+    "category": "integration",
+    "description": "Integrate feature_validator with feature_splitter from phase2",
+    "steps": [
+      "Step 1: Import validate_feature_list in integration module",
+      "Step 2: Add validation step after PRD splitting",
+      "Step 3: Auto-split large features before returning",
+      "Step 4: Log any splits that occurred"
+    ],
+    "passes": true
+  },
+  {
+    "category": "integration",
+    "description": "Create unified knowledge module that combines learnings and progress",
+    "steps": [
+      "Step 1: Create src/knowledge.py module",
+      "Step 2: Implement KnowledgeManager class",
+      "Step 3: Provide single interface for both learnings and progress",
+      "Step 4: Handle synchronization between profile and progress file"
+    ],
+    "passes": true
+  },
+  {
+    "category": "testing",
+    "description": "Create unit tests for learnings.py",
+    "steps": [
+      "Step 1: Create tests/test_learnings.py",
+      "Step 2: Test add_pattern function",
+      "Step 3: Test add_gotcha function",
+      "Step 4: Test add_common_error function",
+      "Step 5: Test deduplication logic"
+    ],
+    "passes": true
+  },
+  {
+    "category": "testing",
+    "description": "Create unit tests for progress.py",
+    "steps": [
+      "Step 1: Create tests/test_progress.py",
+      "Step 2: Test ProgressTracker initialization",
+      "Step 3: Test start_session method",
+      "Step 4: Test log_feature_complete method",
+      "Step 5: Test get_stats method"
+    ],
+    "passes": true
+  },
+  {
+    "category": "testing",
+    "description": "Create unit tests for story_sizing.py",
+    "steps": [
+      "Step 1: Create tests/test_story_sizing.py",
+      "Step 2: Test estimate_complexity with various descriptions",
+      "Step 3: Test is_feature_too_large threshold logic",
+      "Step 4: Test suggest_split produces valid suggestions"
+    ],
+    "passes": true
+  },
+  {
+    "category": "testing",
+    "description": "Create unit tests for feature_validator.py",
+    "steps": [
+      "Step 1: Create tests/test_feature_validator.py",
+      "Step 2: Test validate_feature with valid feature",
+      "Step 3: Test validate_feature with invalid feature",
+      "Step 4: Test validate_feature_list with mixed list",
+      "Step 5: Test auto_split_large_features"
+    ],
+    "passes": true
+  },
+  {
+    "category": "testing",
+    "description": "Create integration tests for knowledge persistence flow",
+    "steps": [
+      "Step 1: Create tests/test_integration.py",
+      "Step 2: Test full flow: load profile -> add learning -> save",
+      "Step 3: Test progress tracking across multiple features",
+      "Step 4: Test knowledge survives across sessions (file persistence)"
+    ],
+    "passes": true
+  },
+  {
+    "category": "testing",
+    "description": "Create test fixtures for all modules",
+    "steps": [
+      "Step 1: Create tests/fixtures/sample_profile.json",
+      "Step 2: Create tests/fixtures/sample_progress.txt",
+      "Step 3: Create tests/fixtures/large_feature.json",
+      "Step 4: Create tests/fixtures/small_feature.json"
+    ],
+    "passes": true
+  },
+  {
+    "category": "testing",
+    "description": "Validate project_profile.schema.json with jsonschema",
+    "steps": [
+      "Step 1: Install jsonschema if not present",
+      "Step 2: Create schema validation test",
+      "Step 3: Test schema validates correct profiles",
+      "Step 4: Test schema rejects invalid profiles"
+    ],
+    "passes": true
+  },
+  {
+    "category": "testing",
+    "description": "Run all tests and verify 100% pass rate",
+    "steps": [
+      "Step 1: Run pytest on all test files",
+      "Step 2: Fix any failing tests",
+      "Step 3: Verify all tests pass",
+      "Step 4: Generate test coverage report"
+    ],
+    "passes": true
+  }
+]

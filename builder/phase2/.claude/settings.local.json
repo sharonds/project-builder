@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(setup-ralph-loop.sh:*)",
+      "Bash(/Users/sharonsciammas/.claude/plugins/cache/claude-plugins-official/ralph-loop/*)"
+    ]
+  }
+}

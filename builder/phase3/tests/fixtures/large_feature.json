@@ -1,0 +1,17 @@
+{
+  "category": "functional",
+  "description": "Build the entire user management system with authentication, oauth integration, two-factor authentication, password reset flow, session management, admin dashboard for user administration, and comprehensive reporting with export functionality",
+  "steps": [
+    "Step 1: Set up authentication infrastructure",
+    "Step 2: Implement basic login/logout",
+    "Step 3: Add OAuth providers",
+    "Step 4: Implement two-factor auth",
+    "Step 5: Create password reset flow",
+    "Step 6: Build session management",
+    "Step 7: Create admin dashboard",
+    "Step 8: Add user reporting",
+    "Step 9: Implement export functionality"
+  ],
+  "passes": false,
+  "_note": "This feature is intentionally too large and should be split"
+}

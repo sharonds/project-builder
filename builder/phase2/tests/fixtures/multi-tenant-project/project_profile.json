@@ -1,0 +1,29 @@
+{
+  "tech_stack": {
+    "frontend": null,
+    "backend": null,
+    "database": null,
+    "auth": null
+  },
+  "architecture": {
+    "pattern": "monolith",
+    "data_isolation": "multi-tenant",
+    "ai_integration": null
+  },
+  "conventions": {
+    "naming": null,
+    "file_structure": "flat",
+    "state_management": null
+  },
+  "schemas": {
+    "Tenant": {
+      "fields": [
+        "id: string",
+        "name: string",
+        "plan: 'free' | 'pro' | 'enterprise'"
+      ],
+      "source": "src/db.ts"
+    }
+  },
+  "integration_points": []
+}

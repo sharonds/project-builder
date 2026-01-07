@@ -1,0 +1,26 @@
+{
+  "tech_stack": {
+    "frontend": "Next.js",
+    "backend": null,
+    "database": null,
+    "auth": null
+  },
+  "architecture": {
+    "pattern": null,
+    "data_isolation": "single-tenant",
+    "ai_integration": null
+  },
+  "conventions": {
+    "naming": null,
+    "file_structure": null,
+    "state_management": "React Context"
+  },
+  "schemas": {},
+  "integration_points": [],
+  "_meta": {
+    "checksums": {
+      "package.json": "4f7c65d60fa5bad31d3934365b1e90e2"
+    },
+    "incremental": true
+  }
+}

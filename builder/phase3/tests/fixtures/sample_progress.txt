@@ -1,0 +1,23 @@
+# Project Progress
+
+## Codebase Patterns (Persistent)
+<!-- Move reusable discoveries here - these survive across features -->
+- Use zustand for client state
+- API error handling uses ErrorBoundary at route level
+- All dates stored as UTC, converted on display
+
+## Session History (Append-Only)
+
+### Session 2 - 2026-01-07
+- Implemented: User avatar upload
+  - Notes: Used sharp for image processing
+- Implemented: Profile settings page
+- Issue: Image resize library missing
+  - Resolution: Installed sharp package
+- Progress: 15 features completed
+
+### Session 1 - 2026-01-06
+- Implemented: Project setup
+- Implemented: Authentication flow
+- Implemented: User registration
+- Progress: 10 features completed

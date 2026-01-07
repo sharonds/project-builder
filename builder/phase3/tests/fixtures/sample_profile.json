@@ -1,0 +1,58 @@
+{
+  "tech_stack": {
+    "frontend": "React",
+    "backend": "Node.js",
+    "database": "Firestore",
+    "auth": "Firebase Auth"
+  },
+  "architecture": {
+    "pattern": "serverless",
+    "data_isolation": "collection-per-tenant",
+    "ai_integration": "Claude API"
+  },
+  "conventions": {
+    "naming": "camelCase",
+    "file_structure": "feature-based",
+    "state_management": "Zustand"
+  },
+  "schemas": {
+    "users": {
+      "fields": ["id", "email", "name", "createdAt"],
+      "relationships": ["tenants"]
+    }
+  },
+  "integration_points": [
+    "Firebase Auth -> User context",
+    "Firestore -> Real-time subscriptions"
+  ],
+  "learnings": {
+    "patterns": [
+      {
+        "pattern": "Use zustand for client state",
+        "context": "Better than Context for frequent updates",
+        "added_at": "2026-01-01T00:00:00Z"
+      }
+    ],
+    "gotchas": [
+      {
+        "warning": "Don't use useEffect chains",
+        "reason": "Causes infinite loops",
+        "added_at": "2026-01-01T00:00:00Z"
+      }
+    ],
+    "common_errors": [
+      {
+        "error": "Module not found: sharp",
+        "fix": "npm install sharp",
+        "frequency": 3,
+        "added_at": "2026-01-01T00:00:00Z"
+      }
+    ]
+  },
+  "_meta": {
+    "created_at": "2026-01-01T00:00:00Z",
+    "updated_at": "2026-01-07T00:00:00Z",
+    "checksums": {},
+    "incremental": false
+  }
+}

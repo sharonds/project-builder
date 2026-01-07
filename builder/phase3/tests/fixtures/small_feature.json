@@ -1,0 +1,12 @@
+{
+  "category": "functional",
+  "description": "Add logout button to navigation header",
+  "steps": [
+    "Step 1: Create LogoutButton component",
+    "Step 2: Add click handler to call auth.signOut()",
+    "Step 3: Redirect to login page after logout",
+    "Step 4: Verify logout clears user session"
+  ],
+  "passes": false,
+  "_note": "This feature is properly sized for single-session implementation"
+}

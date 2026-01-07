@@ -1,0 +1,198 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Project Profile with Learnings",
+  "description": "Architecture profile with persistent knowledge storage",
+  "type": "object",
+  "required": ["tech_stack", "architecture", "conventions", "schemas", "integration_points"],
+  "properties": {
+    "tech_stack": {
+      "type": "object",
+      "description": "Technology stack used in the project",
+      "properties": {
+        "frontend": {
+          "type": ["string", "null"],
+          "description": "Frontend framework (e.g., React, Vue, Angular, None)"
+        },
+        "backend": {
+          "type": ["string", "null"],
+          "description": "Backend framework (e.g., Node.js, Python/Flask, Firebase Functions)"
+        },
+        "database": {
+          "type": ["string", "null"],
+          "description": "Database technology (e.g., Firestore, PostgreSQL, MongoDB)"
+        },
+        "auth": {
+          "type": ["string", "null"],
+          "description": "Authentication provider (e.g., Firebase Auth, Auth0, Custom JWT)"
+        }
+      }
+    },
+    "architecture": {
+      "type": "object",
+      "description": "Architectural patterns and decisions",
+      "properties": {
+        "pattern": {
+          "type": ["string", "null"],
+          "description": "Architecture pattern (monolith, microservices, serverless, jamstack)"
+        },
+        "data_isolation": {
+          "type": ["string", "null"],
+          "description": "Data isolation strategy (single-tenant, multi-tenant, collection-per-tenant)"
+        },
+        "ai_integration": {
+          "type": ["string", "null"],
+          "description": "AI/LLM integration if any (Claude API, OpenAI, None)"
+        }
+      }
+    },
+    "conventions": {
+      "type": "object",
+      "description": "Code conventions and patterns",
+      "properties": {
+        "naming": {
+          "type": ["string", "null"],
+          "description": "Naming convention (camelCase, snake_case, PascalCase)"
+        },
+        "file_structure": {
+          "type": ["string", "null"],
+          "description": "File organization (feature-based, layer-based, flat)"
+        },
+        "state_management": {
+          "type": ["string", "null"],
+          "description": "State management approach (Redux, Context, Zustand, None)"
+        }
+      }
+    },
+    "schemas": {
+      "type": "object",
+      "description": "Data schemas extracted from code",
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "fields": {
+            "type": "array",
+            "items": { "type": "string" }
+          },
+          "relationships": {
+            "type": "array",
+            "items": { "type": "string" }
+          }
+        }
+      }
+    },
+    "integration_points": {
+      "type": "array",
+      "description": "How components connect to each other",
+      "items": {
+        "type": "string"
+      }
+    },
+    "learnings": {
+      "type": "object",
+      "description": "Persistent knowledge discovered during development",
+      "properties": {
+        "patterns": {
+          "type": "array",
+          "description": "Reusable patterns discovered in this codebase",
+          "items": {
+            "type": "object",
+            "required": ["pattern", "context"],
+            "properties": {
+              "pattern": {
+                "type": "string",
+                "description": "Description of the pattern"
+              },
+              "context": {
+                "type": "string",
+                "description": "When and why to use this pattern"
+              },
+              "added_at": {
+                "type": "string",
+                "format": "date-time",
+                "description": "When this pattern was discovered"
+              }
+            }
+          }
+        },
+        "gotchas": {
+          "type": "array",
+          "description": "Warnings and things that break if done wrong",
+          "items": {
+            "type": "object",
+            "required": ["warning", "reason"],
+            "properties": {
+              "warning": {
+                "type": "string",
+                "description": "What to avoid"
+              },
+              "reason": {
+                "type": "string",
+                "description": "Why this is problematic"
+              },
+              "added_at": {
+                "type": "string",
+                "format": "date-time",
+                "description": "When this gotcha was discovered"
+              }
+            }
+          }
+        },
+        "common_errors": {
+          "type": "array",
+          "description": "Recurring errors and their solutions",
+          "items": {
+            "type": "object",
+            "required": ["error", "fix"],
+            "properties": {
+              "error": {
+                "type": "string",
+                "description": "Description of the error"
+              },
+              "fix": {
+                "type": "string",
+                "description": "How to fix it"
+              },
+              "frequency": {
+                "type": "integer",
+                "minimum": 1,
+                "description": "How many times this error has been seen"
+              },
+              "added_at": {
+                "type": "string",
+                "format": "date-time",
+                "description": "When first encountered"
+              }
+            }
+          }
+        }
+      }
+    },
+    "_meta": {
+      "type": "object",
+      "description": "Metadata for tracking profile updates",
+      "properties": {
+        "created_at": {
+          "type": "string",
+          "format": "date-time",
+          "description": "When profile was created"
+        },
+        "updated_at": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Last profile update"
+        },
+        "checksums": {
+          "type": "object",
+          "description": "File checksums for incremental updates",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "incremental": {
+          "type": "boolean",
+          "description": "Whether profile was incrementally updated"
+        }
+      }
+    }
+  }
+}

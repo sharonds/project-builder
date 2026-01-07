@@ -1,0 +1,743 @@
+[
+  {
+    "category": "functional",
+    "description": "Analyzer Agent - Read package.json and detect frontend dependencies",
+    "steps": [
+      "Step 1: Create a test project with package.json containing React and Next.js",
+      "Step 2: Run project-builder analyze <test-project-path>",
+      "Step 3: Verify project_profile.json contains tech_stack.frontend with React/Next.js"
+    ],
+    "passes": true
+  },
+  {
+    "category": "functional",
+    "description": "Analyzer Agent - Read requirements.txt and detect Python dependencies",
+    "steps": [
+      "Step 1: Create a test project with requirements.txt containing Flask and SQLAlchemy",
+      "Step 2: Run project-builder analyze <test-project-path>",
+      "Step 3: Verify project_profile.json contains tech_stack.backend with Flask"
+    ],
+    "passes": true
+  },
+  {
+    "category": "functional",
+    "description": "Analyzer Agent - Read pyproject.toml for Python project detection",
+    "steps": [
+      "Step 1: Create a test project with pyproject.toml",
+      "Step 2: Run project-builder analyze <test-project-path>",
+      "Step 3: Verify project_profile.json correctly identifies Python version and dependencies"
+    ],
+    "passes": true
+  },
+  {
+    "category": "functional",
+    "description": "Analyzer Agent - Read firebase.json and detect Firebase configuration",
+    "steps": [
+      "Step 1: Create a test project with firebase.json containing hosting and functions config",
+      "Step 2: Run project-builder analyze <test-project-path>",
+      "Step 3: Verify project_profile.json contains tech_stack.database with Firestore",
+      "Step 4: Verify project_profile.json contains tech_stack.auth with Firebase Auth"
+    ],
+    "passes": true
+  },
+  {
+    "category": "functional",
+    "description": "Analyzer Agent - Scan directory structure for architectural patterns",
+    "steps": [
+      "Step 1: Create a test project with src/components, src/services, src/hooks structure",
+      "Step 2: Run project-builder analyze <test-project-path>",
+      "Step 3: Verify project_profile.json contains architecture.pattern identifying feature-based structure"
+    ],
+    "passes": true
+  },
+  {
+    "category": "functional",
+    "description": "Analyzer Agent - Extract TypeScript interfaces from code",
+    "steps": [
+      "Step 1: Create a test project with TypeScript files containing interface definitions",
+      "Step 2: Run project-builder analyze <test-project-path>",
+      "Step 3: Verify project_profile.json contains schemas section with extracted interface shapes"
+    ],
+    "passes": true
+  },
+  {
+    "category": "functional",
+    "description": "Analyzer Agent - Detect multi-tenant architecture patterns",
+    "steps": [
+      "Step 1: Create a test project with tenant-based data isolation patterns",
+      "Step 2: Run project-builder analyze <test-project-path>",
+      "Step 3: Verify project_profile.json contains architecture.data_isolation identifying multi-tenant pattern"
+    ],
+    "passes": true
+  },
+  {
+    "category": "functional",
+    "description": "Analyzer Agent - Output valid project_profile.json",
+    "steps": [
+      "Step 1: Run project-builder analyze on any valid project",
+      "Step 2: Verify project_profile.json is created in project root",
+      "Step 3: Validate JSON structure matches project_profile.schema.json",
+      "Step 4: Verify all required fields are present: tech_stack, architecture, conventions, schemas, integration_points"
+    ],
+    "passes": true
+  },
+  {
+    "category": "functional",
+    "description": "Request Router - Auto-detect big feature request (>5 estimated features)",
+    "steps": [
+      "Step 1: Run project-builder request with a complex feature description",
+      "Step 2: Verify router classifies as 'big' type",
+      "Step 3: Verify PRD generation flow is triggered with user approval pause"
+    ],
+    "passes": true
+  },
+  {
+    "category": "functional",
+    "description": "Request Router - Auto-detect small feature request (1-5 features)",
+    "steps": [
+      "Step 1: Run project-builder request with a simple feature description",
+      "Step 2: Verify router classifies as 'small' type",
+      "Step 3: Verify PRD generation proceeds without approval pause"
+    ],
+    "passes": true
+  },
+  {
+    "category": "functional",
+    "description": "Request Router - Auto-detect bug request from keywords",
+    "steps": [
+      "Step 1: Run project-builder request with description containing 'fix', 'broken', 'error'",
+      "Step 2: Verify router classifies as 'bug' type",
+      "Step 3: Verify bug triage flow is triggered"
+    ],
+    "passes": true
+  },
+  {
+    "category": "functional",
+    "description": "Request Router - Respect explicit --type flag",
+    "steps": [
+      "Step 1: Run project-builder request --type big with any description",
+      "Step 2: Verify big feature flow is used regardless of description content",
+      "Step 3: Run project-builder request --type bug with non-bug description",
+      "Step 4: Verify bug flow is used despite no bug keywords"
+    ],
+    "passes": true
+  },
+  {
+    "category": "functional",
+    "description": "PRD Generator - Accept user request and project_profile.json as input",
+    "steps": [
+      "Step 1: Create project_profile.json from analyzer",
+      "Step 2: Submit a feature request",
+      "Step 3: Verify PRD generator receives both inputs",
+      "Step 4: Verify generated PRD references project context"
+    ],
+    "passes": true
+  },
+  {
+    "category": "functional",
+    "description": "PRD Generator - Output prd.json with all required fields",
+    "steps": [
+      "Step 1: Submit a feature request",
+      "Step 2: Verify prd.json is created",
+      "Step 3: Validate prd.json contains: title, type, summary",
+      "Step 4: Validate prd.json contains: context (affected_areas, dependencies, constraints)",
+      "Step 5: Validate prd.json contains: requirements with acceptance_criteria",
+      "Step 6: Validate prd.json contains: validation_plan (tests, manual_verification)",
+      "Step 7: Validate prd.json contains: estimated_features"
+    ],
+    "passes": true
+  },
+  {
+    "category": "functional",
+    "description": "PRD Generator - Include acceptance criteria for each requirement",
+    "steps": [
+      "Step 1: Submit a feature request with multiple components",
+      "Step 2: Verify prd.json requirements array has multiple items",
+      "Step 3: Verify each requirement has id, description, and acceptance_criteria array",
+      "Step 4: Verify acceptance_criteria are specific and testable"
+    ],
+    "passes": true
+  },
+  {
+    "category": "functional",
+    "description": "PRD Generator - Big feature draft and review cycle",
+    "steps": [
+      "Step 1: Submit a big feature request",
+      "Step 2: Verify draft PRD is presented to user",
+      "Step 3: Provide feedback on the draft",
+      "Step 4: Verify PRD is refined based on feedback",
+      "Step 5: Approve the PRD",
+      "Step 6: Verify feature splitting proceeds only after approval"
+    ],
+    "passes": true
+  },
+  {
+    "category": "functional",
+    "description": "PRD Generator - Iterate on feedback until approved",
+    "steps": [
+      "Step 1: Submit a big feature request",
+      "Step 2: Review draft PRD and provide feedback",
+      "Step 3: Verify PRD is updated",
+      "Step 4: Provide additional feedback",
+      "Step 5: Verify PRD is updated again",
+      "Step 6: Approve the final version",
+      "Step 7: Verify multiple iterations are tracked"
+    ],
+    "passes": true
+  },
+  {
+    "category": "functional",
+    "description": "Bug Triage Agent - Accept bug description as input",
+    "steps": [
+      "Step 1: Run project-builder request --type bug with bug description",
+      "Step 2: Verify bug triage agent is invoked",
+      "Step 3: Verify agent investigates the described symptoms"
+    ],
+    "passes": true
+  },
+  {
+    "category": "functional",
+    "description": "Bug Triage Agent - Output bug_report.json with symptoms",
+    "steps": [
+      "Step 1: Submit a bug report",
+      "Step 2: Verify bug_report.json is created",
+      "Step 3: Verify symptoms array captures user-reported issues"
+    ],
+    "passes": true
+  },
+  {
+    "category": "functional",
+    "description": "Bug Triage Agent - Generate reproduction steps",
+    "steps": [
+      "Step 1: Submit a bug report",
+      "Step 2: Verify bug_report.json contains reproduction_steps array",
+      "Step 3: Verify steps are ordered and actionable"
+    ],
+    "passes": true
+  },
+  {
+    "category": "functional",
+    "description": "Bug Triage Agent - Perform root cause analysis",
+    "steps": [
+      "Step 1: Submit a bug report for a real bug in test project",
+      "Step 2: Verify bug_report.json contains root_cause object",
+      "Step 3: Verify root_cause.summary explains the underlying issue",
+      "Step 4: Verify root_cause.affected_files lists relevant source files",
+      "Step 5: Verify root_cause.code_path traces the execution flow"
+    ],
+    "passes": true
+  },
+  {
+    "category": "functional",
+    "description": "Bug Triage Agent - Assign severity level",
+    "steps": [
+      "Step 1: Submit a critical bug (data loss scenario)",
+      "Step 2: Verify severity is 'critical'",
+      "Step 3: Submit a minor UI bug",
+      "Step 4: Verify severity is 'low'"
+    ],
+    "passes": true
+  },
+  {
+    "category": "functional",
+    "description": "Bug Triage Agent - Generate fix_plan.json via PRD Generator",
+    "steps": [
+      "Step 1: Complete bug triage to produce bug_report.json",
+      "Step 2: Verify fix_plan.json is generated",
+      "Step 3: Verify fix_plan references the bug_report",
+      "Step 4: Verify fix_plan contains validation criteria for the fix"
+    ],
+    "passes": true
+  },
+  {
+    "category": "functional",
+    "description": "Feature Splitter - Accept prd.json as input",
+    "steps": [
+      "Step 1: Generate a prd.json from PRD Generator",
+      "Step 2: Pass prd.json to Feature Splitter",
+      "Step 3: Verify splitter reads and parses PRD correctly"
+    ],
+    "passes": true
+  },
+  {
+    "category": "functional",
+    "description": "Feature Splitter - Accept fix_plan.json as input for bugs",
+    "steps": [
+      "Step 1: Generate a fix_plan.json from bug triage",
+      "Step 2: Pass fix_plan.json to Feature Splitter",
+      "Step 3: Verify splitter creates feature_list.json for the fix"
+    ],
+    "passes": true
+  },
+  {
+    "category": "functional",
+    "description": "Feature Splitter - Map validation_plan to test steps",
+    "steps": [
+      "Step 1: Create prd.json with detailed validation_plan",
+      "Step 2: Run Feature Splitter",
+      "Step 3: Verify feature_list.json test steps incorporate validation criteria from PRD"
+    ],
+    "passes": true
+  },
+  {
+    "category": "functional",
+    "description": "Feature Splitter - Output feature_list.json in existing format",
+    "steps": [
+      "Step 1: Run Feature Splitter on any PRD",
+      "Step 2: Verify feature_list.json uses format: category, description, steps, passes",
+      "Step 3: Verify all features have passes: false initially"
+    ],
+    "passes": true
+  },
+  {
+    "category": "functional",
+    "description": "Spec Creator - Interactive mode asks questions",
+    "steps": [
+      "Step 1: Run project-builder create <name> --interactive",
+      "Step 2: Verify agent asks about project overview",
+      "Step 3: Answer questions through 7 phases",
+      "Step 4: Verify agent builds spec from answers"
+    ],
+    "passes": true
+  },
+  {
+    "category": "functional",
+    "description": "Spec Creator - Interactive mode 7-phase flow",
+    "steps": [
+      "Step 1: Start interactive spec creation",
+      "Step 2: Complete Phase 1: Project overview",
+      "Step 3: Complete Phase 2: Involvement level",
+      "Step 4: Complete Phase 3: Technology preferences",
+      "Step 5: Complete Phase 4: Features exploration",
+      "Step 6: Complete Phase 5: Technical details",
+      "Step 7: Complete Phase 6: Success criteria",
+      "Step 8: Complete Phase 7: Approval",
+      "Step 9: Verify all phases completed in order"
+    ],
+    "passes": true
+  },
+  {
+    "category": "functional",
+    "description": "Spec Creator - Autonomous mode from brief description",
+    "steps": [
+      "Step 1: Run project-builder create <name> --autonomous 'Build a todo app with user auth'",
+      "Step 2: Verify agent generates full spec without asking questions",
+      "Step 3: Verify generated spec covers auth, data storage, and UI"
+    ],
+    "passes": true
+  },
+  {
+    "category": "functional",
+    "description": "Spec Creator - Output app_spec.txt",
+    "steps": [
+      "Step 1: Complete spec creation (either mode)",
+      "Step 2: Verify app_spec.txt is created in project directory",
+      "Step 3: Verify spec contains all gathered requirements"
+    ],
+    "passes": true
+  },
+  {
+    "category": "functional",
+    "description": "Spec Creator - Output initializer_prompt.md",
+    "steps": [
+      "Step 1: Complete spec creation",
+      "Step 2: Verify initializer_prompt.md is created",
+      "Step 3: Verify prompt is configured for the new project"
+    ],
+    "passes": true
+  },
+  {
+    "category": "functional",
+    "description": "CLI - analyze command creates project_profile.json",
+    "steps": [
+      "Step 1: Run project-builder analyze <path>",
+      "Step 2: Verify command executes without error",
+      "Step 3: Verify project_profile.json exists in target path"
+    ],
+    "passes": true
+  },
+  {
+    "category": "functional",
+    "description": "CLI - request command routes correctly",
+    "steps": [
+      "Step 1: Run project-builder request with various descriptions",
+      "Step 2: Verify correct flow is triggered based on content",
+      "Step 3: Verify --type flag overrides auto-detection"
+    ],
+    "passes": true
+  },
+  {
+    "category": "functional",
+    "description": "CLI - create command with --interactive flag",
+    "steps": [
+      "Step 1: Run project-builder create myapp --interactive",
+      "Step 2: Verify interactive mode is started",
+      "Step 3: Verify questions are asked"
+    ],
+    "passes": true
+  },
+  {
+    "category": "functional",
+    "description": "CLI - create command with --autonomous flag",
+    "steps": [
+      "Step 1: Run project-builder create myapp --autonomous 'description'",
+      "Step 2: Verify autonomous mode is started",
+      "Step 3: Verify spec is generated without interaction"
+    ],
+    "passes": true
+  },
+  {
+    "category": "functional",
+    "description": "JSON Schema - project_profile.schema.json validates output",
+    "steps": [
+      "Step 1: Run analyzer to create project_profile.json",
+      "Step 2: Validate against project_profile.schema.json",
+      "Step 3: Verify no validation errors"
+    ],
+    "passes": true
+  },
+  {
+    "category": "functional",
+    "description": "JSON Schema - prd.schema.json validates output",
+    "steps": [
+      "Step 1: Run PRD generator to create prd.json",
+      "Step 2: Validate against prd.schema.json",
+      "Step 3: Verify no validation errors"
+    ],
+    "passes": true
+  },
+  {
+    "category": "functional",
+    "description": "JSON Schema - bug_report.schema.json validates output",
+    "steps": [
+      "Step 1: Run bug triage to create bug_report.json",
+      "Step 2: Validate against bug_report.schema.json",
+      "Step 3: Verify no validation errors"
+    ],
+    "passes": true
+  },
+  {
+    "category": "functional",
+    "description": "Incremental Profile Updates - Detect file changes",
+    "steps": [
+      "Step 1: Run analyze to create initial project_profile.json",
+      "Step 2: Modify package.json in target project",
+      "Step 3: Run analyze again",
+      "Step 4: Verify profile is updated incrementally, not recreated"
+    ],
+    "passes": true
+  },
+  {
+    "category": "functional",
+    "description": "Integration - Generated features work with existing coding agent",
+    "steps": [
+      "Step 1: Generate feature_list.json from PRD flow",
+      "Step 2: Run project-builder run to start coding agent",
+      "Step 3: Verify coding agent can read and process generated features",
+      "Step 4: Verify coding agent marks features as passing"
+    ],
+    "passes": true
+  },
+  {
+    "category": "functional",
+    "description": "src/analyzer.py - Module exists and exports required functions",
+    "steps": [
+      "Step 1: Import analyzer module",
+      "Step 2: Verify analyze_project function exists",
+      "Step 3: Verify function accepts path parameter"
+    ],
+    "passes": true
+  },
+  {
+    "category": "functional",
+    "description": "src/prd.py - Module exists and exports required functions",
+    "steps": [
+      "Step 1: Import prd module",
+      "Step 2: Verify generate_prd function exists",
+      "Step 3: Verify function accepts request and profile parameters"
+    ],
+    "passes": true
+  },
+  {
+    "category": "functional",
+    "description": "src/bug_triage.py - Module exists and exports required functions",
+    "steps": [
+      "Step 1: Import bug_triage module",
+      "Step 2: Verify triage_bug function exists",
+      "Step 3: Verify function accepts bug description parameter"
+    ],
+    "passes": true
+  },
+  {
+    "category": "functional",
+    "description": "src/request_router.py - Module exists and exports required functions",
+    "steps": [
+      "Step 1: Import request_router module",
+      "Step 2: Verify route_request function exists",
+      "Step 3: Verify function returns request type classification"
+    ],
+    "passes": true
+  },
+  {
+    "category": "functional",
+    "description": "prompts/analyzer_prompt.md - Prompt file exists",
+    "steps": [
+      "Step 1: Check prompts/analyzer_prompt.md exists",
+      "Step 2: Verify contains instructions for project analysis",
+      "Step 3: Verify references project_profile.json output format"
+    ],
+    "passes": true
+  },
+  {
+    "category": "functional",
+    "description": "prompts/prd_generator_prompt.md - Prompt file exists",
+    "steps": [
+      "Step 1: Check prompts/prd_generator_prompt.md exists",
+      "Step 2: Verify contains instructions for PRD generation",
+      "Step 3: Verify handles big/small/bug request types"
+    ],
+    "passes": true
+  },
+  {
+    "category": "functional",
+    "description": "prompts/bug_triage_prompt.md - Prompt file exists",
+    "steps": [
+      "Step 1: Check prompts/bug_triage_prompt.md exists",
+      "Step 2: Verify contains instructions for bug investigation",
+      "Step 3: Verify includes root cause analysis guidance"
+    ],
+    "passes": true
+  },
+  {
+    "category": "functional",
+    "description": "prompts/spec_creator_prompt.md - Prompt file exists",
+    "steps": [
+      "Step 1: Check prompts/spec_creator_prompt.md exists",
+      "Step 2: Verify contains 7-phase interactive flow",
+      "Step 3: Verify contains autonomous mode instructions"
+    ],
+    "passes": true
+  },
+  {
+    "category": "functional",
+    "description": "schemas/project_profile.schema.json - Schema file exists",
+    "steps": [
+      "Step 1: Check schemas/project_profile.schema.json exists",
+      "Step 2: Verify valid JSON Schema format",
+      "Step 3: Verify defines tech_stack, architecture, conventions, schemas, integration_points"
+    ],
+    "passes": true
+  },
+  {
+    "category": "functional",
+    "description": "schemas/prd.schema.json - Schema file exists",
+    "steps": [
+      "Step 1: Check schemas/prd.schema.json exists",
+      "Step 2: Verify valid JSON Schema format",
+      "Step 3: Verify defines title, type, summary, context, requirements, validation_plan, estimated_features"
+    ],
+    "passes": true
+  },
+  {
+    "category": "functional",
+    "description": "schemas/bug_report.schema.json - Schema file exists",
+    "steps": [
+      "Step 1: Check schemas/bug_report.schema.json exists",
+      "Step 2: Verify valid JSON Schema format",
+      "Step 3: Verify defines id, title, symptoms, reproduction_steps, root_cause, severity"
+    ],
+    "passes": true
+  },
+  {
+    "category": "functional",
+    "description": "Modified src/cli.py - Has analyze command",
+    "steps": [
+      "Step 1: Read src/cli.py",
+      "Step 2: Verify analyze command is registered",
+      "Step 3: Verify command accepts path argument"
+    ],
+    "passes": true
+  },
+  {
+    "category": "functional",
+    "description": "Modified src/cli.py - Has request command",
+    "steps": [
+      "Step 1: Read src/cli.py",
+      "Step 2: Verify request command is registered",
+      "Step 3: Verify command accepts description and optional --type flag"
+    ],
+    "passes": true
+  },
+  {
+    "category": "functional",
+    "description": "Modified src/cli.py - Has create command with modes",
+    "steps": [
+      "Step 1: Read src/cli.py",
+      "Step 2: Verify create command is registered",
+      "Step 3: Verify --interactive and --autonomous flags work"
+    ],
+    "passes": true
+  },
+  {
+    "category": "functional",
+    "description": "Modified src/agent.py - Supports PRD input",
+    "steps": [
+      "Step 1: Read src/agent.py",
+      "Step 2: Verify agent can accept prd.json as input",
+      "Step 3: Verify agent works with both app_spec.txt and prd.json"
+    ],
+    "passes": true
+  },
+  {
+    "category": "functional",
+    "description": "Modified initializer_prompt.md - Accepts PRD as input",
+    "steps": [
+      "Step 1: Read prompts/initializer_prompt.md",
+      "Step 2: Verify prompt handles prd.json as alternative to app_spec.txt",
+      "Step 3: Verify feature generation from PRD is documented"
+    ],
+    "passes": true
+  },
+  {
+    "category": "functional",
+    "description": "End-to-end: New greenfield project creation",
+    "steps": [
+      "Step 1: Run project-builder create myapp --interactive",
+      "Step 2: Answer all 7 phases of questions",
+      "Step 3: Verify app_spec.txt is created",
+      "Step 4: Verify initializer_prompt.md is created",
+      "Step 5: Run project-builder run",
+      "Step 6: Verify feature_list.json is generated",
+      "Step 7: Verify coding agent begins implementation"
+    ],
+    "passes": true
+  },
+  {
+    "category": "functional",
+    "description": "End-to-end: Small feature on existing project",
+    "steps": [
+      "Step 1: Create test project with existing code",
+      "Step 2: Run project-builder analyze <path>",
+      "Step 3: Verify project_profile.json created",
+      "Step 4: Run project-builder request 'Add a logout button'",
+      "Step 5: Verify small feature flow triggered",
+      "Step 6: Verify prd.json generated",
+      "Step 7: Verify feature_list.json generated",
+      "Step 8: Verify coding agent implements feature"
+    ],
+    "passes": true
+  },
+  {
+    "category": "functional",
+    "description": "End-to-end: Big feature with approval flow",
+    "steps": [
+      "Step 1: Create test project with existing code",
+      "Step 2: Run project-builder analyze <path>",
+      "Step 3: Run project-builder request 'Add complete user management system with roles, permissions, teams, invitations, audit logs'",
+      "Step 4: Verify big feature flow triggered (>5 features)",
+      "Step 5: Verify draft PRD presented for review",
+      "Step 6: Provide feedback on draft",
+      "Step 7: Verify PRD updated",
+      "Step 8: Approve final PRD",
+      "Step 9: Verify feature splitting begins after approval",
+      "Step 10: Verify feature_list.json has many features"
+    ],
+    "passes": true
+  },
+  {
+    "category": "functional",
+    "description": "End-to-end: Bug triage and fix",
+    "steps": [
+      "Step 1: Create test project with a known bug",
+      "Step 2: Run project-builder analyze <path>",
+      "Step 3: Run project-builder request --type bug 'Login breaks after 5 minutes of inactivity'",
+      "Step 4: Verify bug triage agent investigates",
+      "Step 5: Verify bug_report.json created with root cause",
+      "Step 6: Verify fix_plan.json generated",
+      "Step 7: Verify feature_list.json generated for fix",
+      "Step 8: Verify coding agent fixes the bug",
+      "Step 9: Verify regression test included"
+    ],
+    "passes": true
+  },
+  {
+    "category": "style",
+    "description": "Code style - Python files follow PEP 8",
+    "steps": [
+      "Step 1: Run flake8 or similar linter on src/*.py",
+      "Step 2: Verify no style violations",
+      "Step 3: Verify consistent indentation (4 spaces)"
+    ],
+    "passes": true
+  },
+  {
+    "category": "style",
+    "description": "Code style - Type hints in Python functions",
+    "steps": [
+      "Step 1: Review all public functions in src/*.py",
+      "Step 2: Verify parameter type hints present",
+      "Step 3: Verify return type hints present"
+    ],
+    "passes": true
+  },
+  {
+    "category": "style",
+    "description": "Documentation - All prompts have clear structure",
+    "steps": [
+      "Step 1: Review all prompts/*.md files",
+      "Step 2: Verify clear section headings",
+      "Step 3: Verify input/output formats documented"
+    ],
+    "passes": true
+  },
+  {
+    "category": "style",
+    "description": "Documentation - JSON schemas have descriptions",
+    "steps": [
+      "Step 1: Review all schemas/*.json files",
+      "Step 2: Verify each property has description field",
+      "Step 3: Verify examples included where helpful"
+    ],
+    "passes": true
+  },
+  {
+    "category": "functional",
+    "description": "Error handling - Invalid path for analyze command",
+    "steps": [
+      "Step 1: Run project-builder analyze /nonexistent/path",
+      "Step 2: Verify clear error message displayed",
+      "Step 3: Verify no crash or stack trace shown to user"
+    ],
+    "passes": true
+  },
+  {
+    "category": "functional",
+    "description": "Error handling - Empty project for analyze command",
+    "steps": [
+      "Step 1: Create empty directory",
+      "Step 2: Run project-builder analyze <empty-dir>",
+      "Step 3: Verify graceful handling with minimal profile"
+    ],
+    "passes": true
+  },
+  {
+    "category": "functional",
+    "description": "Error handling - Invalid request type flag",
+    "steps": [
+      "Step 1: Run project-builder request --type invalid 'description'",
+      "Step 2: Verify clear error message about valid types",
+      "Step 3: Verify no crash"
+    ],
+    "passes": true
+  },
+  {
+    "category": "functional",
+    "description": "Error handling - Missing description for request",
+    "steps": [
+      "Step 1: Run project-builder request without description",
+      "Step 2: Verify usage help displayed",
+      "Step 3: Verify no crash"
+    ],
+    "passes": true
+  }
+]

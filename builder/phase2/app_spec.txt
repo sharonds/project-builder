@@ -1,0 +1,174 @@
+# Project Builder Phase 2: Request Processing System
+
+## Overview
+Enhance the existing project-builder with a sophisticated request processing system that handles big features, small features, and bugs through investigation, PRD generation, and feature splitting.
+
+## Technology Stack
+- **Language**: Python 3.11+
+- **Framework**: Claude Agent SDK
+- **Browser Automation**: Playwright MCP
+- **Data Format**: JSON files (project_profile.json, prd.json, bug_report.json, feature_list.json)
+
+## Existing Codebase
+This builds on the existing project-builder at `/builder/`:
+- `src/agent.py` - Core agent loop
+- `src/client.py` - Claude SDK client with Playwright
+- `src/features.py` - JSON feature list management
+- `src/cli.py` - CLI interface
+- `src/security.py` - Bash command allowlist
+
+## Core Features
+
+### 1. Analyzer Agent
+**Purpose**: Scan existing project and create architecture profile
+
+**CLI Command**: `project-builder analyze <path>`
+
+**Output**: `project_profile.json` containing:
+- tech_stack (frontend, backend, database, auth)
+- architecture (patterns, data isolation, integrations)
+- conventions (naming, file structure, state management)
+- schemas (extracted from code/models)
+- integration_points (how components connect)
+
+**Detection Tasks**:
+- Read package.json, requirements.txt, pyproject.toml for dependencies
+- Read firebase.json, tsconfig.json, etc. for config
+- Scan directory structure for patterns
+- Extract types/interfaces from code
+
+### 2. Request Router
+**Purpose**: Route user requests to appropriate flow
+
+**CLI Command**: `project-builder request "<description>" [--type big|small|bug]`
+
+**Logic**:
+- If --type specified, use that flow
+- Otherwise, analyze request and auto-detect type
+- Big feature: >5 estimated features
+- Small feature: 1-5 features
+- Bug: keywords like "fix", "broken", "error", "doesn't work"
+
+### 3. PRD Generator Agent
+**Purpose**: Convert request + project context into actionable PRD
+
+**Input**:
+- User request description
+- project_profile.json
+- Request type
+
+**Output**: `prd.json` containing:
+- title, type, summary
+- context (affected_areas, dependencies, constraints)
+- requirements (with acceptance criteria)
+- validation_plan (tests, manual verification)
+- estimated_features
+
+**Big Feature Flow**:
+- Generate draft PRD
+- Present to user for review
+- Accept feedback and refine
+- Iterate until approved
+- Then proceed to feature splitting
+
+### 4. Bug Triage Agent
+**Purpose**: Investigate bug and create reference document
+
+**Input**: Bug description from user
+
+**Output**: `bug_report.json` containing:
+- id, title, reported_by, created_at
+- symptoms (list)
+- reproduction_steps (list)
+- root_cause (summary, affected_files, code_path)
+- affected_areas
+- severity (low/medium/high/critical)
+- related_bugs
+
+**Then**: Generate fix_plan.json via PRD Generator
+
+### 5. Enhanced Feature Splitter
+**Purpose**: Break PRD into implementable features
+
+**Input**: `prd.json` (or `fix_plan.json` for bugs)
+
+**Output**: `feature_list.json` (existing format)
+
+**Enhancement**: Map validation_plan from PRD to test steps in features
+
+### 6. Spec Creator Agent (Greenfield)
+**Purpose**: Interactive conversation to create initial spec
+
+**CLI Command**: `project-builder create <name> [--interactive|--autonomous]`
+
+**Modes**:
+- Interactive: Ask questions, build spec from answers (7-phase flow)
+- Autonomous: Generate full spec from brief description
+
+**Output**: `app_spec.txt` + `initializer_prompt.md`
+
+## File Structure (New/Modified)
+
+### New Files
+```
+builder/
+├── src/
+│   ├── analyzer.py          # Project profile generation
+│   ├── prd.py               # PRD schema and generation
+│   ├── bug_triage.py        # Bug report schema and triage
+│   └── request_router.py    # Route requests to flows
+├── prompts/
+│   ├── analyzer_prompt.md   # Analyzer agent instructions
+│   ├── prd_generator_prompt.md
+│   ├── bug_triage_prompt.md
+│   └── spec_creator_prompt.md
+└── schemas/
+    ├── project_profile.schema.json
+    ├── prd.schema.json
+    └── bug_report.schema.json
+```
+
+### Modified Files
+- `src/cli.py` - Add analyze, request, create commands
+- `src/agent.py` - Support PRD input alongside app_spec
+- `prompts/initializer_prompt.md` - Accept PRD as input
+
+## CLI Commands (Final)
+
+```bash
+# Analyze existing project
+project-builder analyze <path>
+
+# Process a request (auto-detect type)
+project-builder request "<description>"
+
+# Process with explicit type
+project-builder request --type bug "<description>"
+project-builder request --type small "<description>"
+project-builder request --type big "<description>"
+
+# Create new project (greenfield)
+project-builder create <name> --interactive
+project-builder create <name> --autonomous "<description>"
+
+# Existing commands
+project-builder run [--ralph]
+project-builder status
+```
+
+## Success Criteria
+
+1. `analyze` command creates accurate project_profile.json
+2. `request` command correctly routes to appropriate flow
+3. PRD generation includes investigation (not just translation)
+4. Bug triage produces actionable root cause analysis
+5. Big features pause for user approval before splitting
+6. Generated features integrate with existing coding agent
+7. All JSON outputs are valid and follow schemas
+
+## Design Constraints
+
+1. **Incremental Profile Updates**: project_profile.json created once, updated when files change
+2. **Full Root Cause Analysis**: Bug triage investigates deeply before planning fix
+3. **Big Feature Approval**: Require user approval for PRDs with >5 estimated features
+4. **Two Modes for Greenfield**: Support both interactive and autonomous spec creation

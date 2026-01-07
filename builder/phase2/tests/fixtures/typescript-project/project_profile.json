@@ -1,0 +1,49 @@
+{
+  "tech_stack": {
+    "frontend": null,
+    "backend": null,
+    "database": null,
+    "auth": null
+  },
+  "architecture": {
+    "pattern": "monolith",
+    "data_isolation": null,
+    "ai_integration": null
+  },
+  "conventions": {
+    "naming": null,
+    "file_structure": "flat",
+    "state_management": null
+  },
+  "schemas": {
+    "User": {
+      "fields": [
+        "id: string",
+        "email: string",
+        "name: string",
+        "createdAt: Date"
+      ],
+      "source": "src/types.ts"
+    },
+    "Product": {
+      "fields": [
+        "id: string",
+        "title: string",
+        "price: number",
+        "inStock: boolean"
+      ],
+      "source": "src/types.ts"
+    },
+    "Order": {
+      "fields": [
+        "id: string",
+        "userId: string",
+        "products: Product[]",
+        "total: number",
+        "status: 'pending' | 'shipped' | 'delivered'"
+      ],
+      "source": "src/types.ts"
+    }
+  },
+  "integration_points": []
+}

@@ -1,0 +1,20 @@
+{
+  "tech_stack": {
+    "frontend": null,
+    "backend": null,
+    "database": "Firestore",
+    "auth": "Firebase Auth"
+  },
+  "architecture": {
+    "pattern": "serverless",
+    "data_isolation": null,
+    "ai_integration": null
+  },
+  "conventions": {
+    "naming": null,
+    "file_structure": null,
+    "state_management": null
+  },
+  "schemas": {},
+  "integration_points": []
+}
