@@ -1,0 +1,89 @@
+# Sample Application Specification
+
+This is a sample app_spec.txt file. Replace this with your actual project specification.
+
+## Project Name
+My Application
+
+## Overview
+Describe what your application does and its main purpose.
+
+## Technology Stack
+
+### Frontend
+- React 18 with TypeScript
+- Tailwind CSS for styling
+- React Router for navigation
+
+### Backend
+- Node.js with Express
+- PostgreSQL database
+- REST API
+
+## Features
+
+### Core Features
+1. User authentication (login/register/logout)
+2. Dashboard with overview statistics
+3. CRUD operations for main entities
+4. Search and filtering
+5. Responsive design
+
+### Nice-to-Have
+1. Dark mode toggle
+2. Export to CSV
+3. Email notifications
+
+## Database Schema
+
+### Users
+- id (primary key)
+- email (unique)
+- password_hash
+- name
+- created_at
+
+### Items
+- id (primary key)
+- user_id (foreign key)
+- title
+- description
+- status
+- created_at
+- updated_at
+
+## API Endpoints
+
+### Authentication
+- POST /api/auth/register
+- POST /api/auth/login
+- POST /api/auth/logout
+
+### Items
+- GET /api/items
+- POST /api/items
+- GET /api/items/:id
+- PUT /api/items/:id
+- DELETE /api/items/:id
+
+## UI/UX Requirements
+
+### Design
+- Clean, modern interface
+- Mobile-first responsive design
+- Consistent color scheme
+- Clear navigation
+
+### Pages
+1. Landing page
+2. Login/Register
+3. Dashboard
+4. Item list
+5. Item detail/edit
+
+## Success Criteria
+- All features functional and tested
+- No console errors
+- Responsive on mobile, tablet, desktop
+- Fast loading times (<3s)
+- Clean, maintainable code

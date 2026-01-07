@@ -1,0 +1,12 @@
+# Project Builder Dependencies
+
+# Claude Agent SDK
+claude-code-sdk>=0.1.0
+
+# MCP Server
+mcp>=0.1.0
+fastmcp>=0.1.0
+pydantic>=2.0.0
+
+# Utilities
+python-dotenv>=1.0.0
